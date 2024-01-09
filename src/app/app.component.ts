@@ -11,4 +11,7 @@ import { RouterOutlet } from '@angular/router';
 })
 export class AppComponent {
   title = 'trouve-ton-artisan';
+  logo: any = "../assets/logo.png";
+  search: any = "../assets/search.png"
+  picture: any = "../assets/Visuel-flou.jpeg"
 }
