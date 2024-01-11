@@ -10,7 +10,6 @@
 }
 
 .artisan-one {
-  
   margin: 10px;
   margin-bottom: 0;
   margin-top: 30px;
@@ -60,4 +59,51 @@
 
 .location {
   padding: 10px;
+}
+
+.part-two {
+  background-color: #f1f8fc;
+}
+
+.title-part-two {
+  background-color: #cd2c2e;
+  color: #fff;
+  width: 50%;
+  padding: 10px;
+  padding-right: 20px;
+  margin: 20px;
+}
+
+hr {
+  width: 15%;
+  height: 2px;
+  background-color: #fff;
+  opacity: 1;
+}
+
+.step {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.number {
+  padding: 10px;
+  font-size: 70px;
+  color : #0074c7;
+}
+
+.text-step {
+  background-color: #fff;
+  color: #00497c;
+  padding: 10px;
+  padding-bottom: 0;
+  border-radius: 0 30px 30px 0;
+  height: 80px;
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
 }
