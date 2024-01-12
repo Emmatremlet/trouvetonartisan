@@ -11,6 +11,7 @@
         type="search"
         placeholder="Rechercher"
         aria-label="Search"
+        (input)="searchArtisans($event)"
       />
       <button class="btn" type="submit">
         <img class="search" src="{{ search }}" alt="loupe bleue" />
@@ -19,19 +20,19 @@
   </div>
 
   <div class="container">
-    <form>
+    <div class="select-category">
       <label for="category">Choisir une catégorie:</label>
-      <select id="category" [(ngModel)]="selectedCategory" name="category">
+      <select id="category" name="category" (change)="sortArtisans($event)">
         <option value="">Toutes les catégories</option>
         <option value="Bâtiment">Bâtiment</option>
         <option value="Services">Services</option>
         <option value="Alimentation">Alimentation</option>
         <option value="Fabrication">Fabrication</option>
       </select>
-    </form>
+    </div>
 
     <div class="row">
-      <div *ngFor="let artisan of filterArtisans()" class="col-md-4 mb-3">
+      <div *ngFor="let artisan of sortedArtisans" class="col-md-4 mb-3">
         <div class="card" style="width: 18rem">
           <img src="{{ favicon }}" class="card-img-top" alt="favicon du site" />
           <div class="card-body">
