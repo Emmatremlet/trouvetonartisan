@@ -4,40 +4,53 @@
     <h2>Comment trouver son artisan ?</h2>
   </div>
 
-  <div class="research row justify-content-end">
-    <form class="d-flex col-md-6" role="search">
-      <input
-        class="form-control col me-2"
-        type="search"
-        placeholder="Rechercher"
-        aria-label="Search"
-        (input)="searchArtisans($event)"
-      />
-      <button class="btn" type="submit">
-        <img class="search" src="{{ search }}" alt="loupe bleue" />
-      </button>
-    </form>
+  <div class="container">
+    <div class="research row justify-content-end">
+      <div class="select-category col-md-6">
+        <select class="category" style="background-color: none; color: #00497C; border-color:#0074C7; border-bottom:solid; border-right:solid;" name="category" (change)="sortArtisans($event)">
+          <option value="">Toutes les catégories</option>
+          <option value="Bâtiment">Bâtiment</option>
+          <option value="Services">Services</option>
+          <option value="Alimentation">Alimentation</option>
+          <option value="Fabrication">Fabrication</option>
+        </select>
+      </div>
+
+      <form class="d-flex col-md-6" role="search">
+        <input
+          class="form-control col me-2"
+          type="search"
+          placeholder="Rechercher"
+          aria-label="Search"
+          (input)="searchArtisans($event)"
+        />
+        <button class="button" type="submit">
+          <img class="search" src="{{ search }}" alt="loupe bleue" />
+        </button>
+      </form>
+    </div>
   </div>
 
-  <div class="container">
-    <div class="select-category">
-      <label for="category">Choisir une catégorie:</label>
-      <select id="category" name="category" (change)="sortArtisans($event)">
-        <option value="">Toutes les catégories</option>
-        <option value="Bâtiment">Bâtiment</option>
-        <option value="Services">Services</option>
-        <option value="Alimentation">Alimentation</option>
-        <option value="Fabrication">Fabrication</option>
-      </select>
-    </div>
-
-    <div class="row">
-      <div *ngFor="let artisan of sortedArtisans" class="col-md-4 mb-3">
-        <div class="card" style="width: 18rem">
-          <img src="{{ favicon }}" class="card-img-top" alt="favicon du site" />
-          <div class="card-body">
-            <h5 class="card-title">{{ artisan.name }}</h5>
-            <h6 class="card-title">{{ artisan.category }}</h6>
+  <div class="row mx-auto">
+    <div *ngFor="let artisan of sortedArtisans" class="col-md-4 mb-3">
+      <div class="card" style="width: 19rem">
+        <img src="{{ favicon }}" class="card-img-top" alt="favicon du site" />
+        <div class="card-body">
+          <div class="name-location">
+            <div class="name-job">
+              <h5 class="card-title">{{ artisan.name }}</h5>
+              <h6 class="card-title">{{ artisan.category }}</h6>
+            </div>
+            <div class="location">
+              <img
+                class="location-icon"
+                src="{{ location }}"
+                alt="icone de localisation"
+              />
+              <p class="location card-text">{{ artisan.location }} <br /></p>
+            </div>
+          </div>
+          <div class="opinion-btn">
             <div class="opinion">
               <p>Avis</p>
               <div class="stars">
@@ -106,14 +119,6 @@
                   </svg>
                 </div>
               </div>
-            </div>
-            <div class="location">
-              <img
-                class="location-icon"
-                src="{{ location }}"
-                alt="icone de localisation"
-              />
-              <p class="location card-text">{{ artisan.location }} <br /></p>
             </div>
             <a href="#" class="btn btn-primary">Voir plus</a>
           </div>
