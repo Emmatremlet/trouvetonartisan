@@ -14,37 +14,37 @@ hr {
   opacity: 1;
 }
 
-select{
-  background-color: #f1f8fc;
-  border: none;
-  border-bottom: #0074c7;
-  border-left: #0074c7;
+select {
+  width : 300px;
 }
-
 
 .research {
   margin: 30px;
 }
 
-.form-control {
-  color: #0074c7;
-  border: solid;
-  border-color: #0074c7;
-  border-left: none;
-  border-top: none;
+.select-category {
+  margin: 20px;
+}
+
+.search {
+  margin: 20px;
 }
 
 .form-control::placeholder {
   color: #0074c7;
 }
 
-.button{
+.button {
   background-color: #fff !important;
-  border : none;
+  border: none;
 }
 
-.search {
+.search-icon {
   width: 30px;
+}
+
+.container-cards {
+  margin-top: 90px;
 }
 
 .card {
@@ -114,8 +114,8 @@ select{
 
 .btn {
   background-color: #fff;
-  color:#00497c;
-  border : none;
+  color: #00497c;
+  border: none;
   border-bottom: solid;
   border-right: solid;
   border-color: #0074c7;
