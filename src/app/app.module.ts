@@ -5,10 +5,12 @@ import { ArtisanComponent } from './artisan/artisan.component';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app.routes';
+import { RouterModule } from '@angular/router';
+
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, ArtisanComponent],
-  imports: [FormsModule,BrowserModule, AppRoutingModule],
+  imports: [FormsModule,BrowserModule, AppRoutingModule, RouterModule],
   providers: [],
   bootstrap: [AppComponent],
   exports: [],

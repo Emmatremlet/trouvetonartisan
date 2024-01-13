@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ArtisansService } from '../artisans.service';
 import { Artisan } from '../artisan.model';
 import { CommonModule } from '@angular/common';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-artisan',
@@ -26,7 +27,7 @@ export class ArtisanComponent implements OnInit{
 
   
 
-  constructor(private artisanService: ArtisansService, private route: ActivatedRoute) {
+  constructor(private artisanService: ArtisansService, private route: ActivatedRoute, private cdRef: ChangeDetectorRef) {
     this.artisanService.getArtisans().subscribe(artisans => {
       this.artisans = artisans;
       this.sortedArtisans = [...this.artisans];
@@ -56,11 +57,15 @@ export class ArtisanComponent implements OnInit{
   filterArtisansByCategory(category: string): void {
     this.artisanService.getArtisans().subscribe(artisans => {
       this.sortedArtisans = artisans.filter(artisan => artisan.category === category);
+      this.cdRef.detectChanges();
+
     });
   }
   
   ngOnInit(): void {
+    console.log('Initial URL:', this.route.url);
     const category = this.route.snapshot.data['category'];
+    console.log('Current route category:', category);
     if (category) {
       this.filterArtisansByCategory(category);
     }
