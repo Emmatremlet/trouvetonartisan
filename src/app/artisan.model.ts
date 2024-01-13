@@ -3,6 +3,7 @@ export interface Artisan {
   name: string;
   job: string;
   category: string;
+  categoryRoute : string,
   location: string;
   image: any;
   description: string;

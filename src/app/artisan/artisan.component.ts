@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ArtisansService } from '../artisans.service';
 import { Artisan } from '../artisan.model';
 import { CommonModule } from '@angular/common';
@@ -10,20 +11,26 @@ import { CommonModule } from '@angular/common';
   templateUrl: './artisan.component.html',
   styleUrl: './artisan.component.css',
 })
-export class ArtisanComponent {
+export class ArtisanComponent implements OnInit{
   location: any = '../assets/location.png';
   search: any = '../assets/search.png';
   favicon: any = '../assets/favicon.png';
   @Input() id: number = 0;
-  artisans: Artisan [];
-  sortedArtisans: Artisan[];
+  artisans!: Artisan [];
+  sortedArtisans!: Artisan[];
   selectedCategory: string = '';
   searchTerm: string = '';
+  category!: string;
+
   artisan: Artisan | undefined;
 
-  constructor(private artisanService: ArtisansService) {
-    this.artisans = artisanService.getArtisans();
-    this.sortedArtisans = [...this.artisans];
+  
+
+  constructor(private artisanService: ArtisansService, private route: ActivatedRoute) {
+    this.artisanService.getArtisans().subscribe(artisans => {
+      this.artisans = artisans;
+      this.sortedArtisans = [...this.artisans];
+    });
   }
 
   searchArtisans(event: Event) {
@@ -44,6 +51,18 @@ export class ArtisanComponent {
       );
     } else {
       this.sortedArtisans = [...this.artisans];
+    }
+  }
+  filterArtisansByCategory(category: string): void {
+    this.artisanService.getArtisans().subscribe(artisans => {
+      this.sortedArtisans = artisans.filter(artisan => artisan.category === category);
+    });
+  }
+  
+  ngOnInit(): void {
+    const category = this.route.snapshot.data['category'];
+    if (category) {
+      this.filterArtisansByCategory(category);
     }
   }
   
