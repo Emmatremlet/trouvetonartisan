@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { ArtisanComponent } from './artisan/artisan.component';
+import { ArtisansSheetComponent } from './artisans-sheet/artisans-sheet.component';
 
 export const routes: Routes = [
     { path: "", component: HomeComponent },
@@ -9,6 +10,7 @@ export const routes: Routes = [
     { path: 'fabrication', component: ArtisanComponent, data: { category: 'Fabrication' } },
     { path: 'alimentation', component: ArtisanComponent, data: { category: 'Alimentation' } },
     { path: 'batiment', component: ArtisanComponent, data: { category: 'Bâtiment' } },    
+    { path: "artisansheet/:id", component: ArtisansSheetComponent },
     { path: '', redirectTo: '/', pathMatch: 'full' },
 ];
     

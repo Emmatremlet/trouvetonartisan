@@ -63,9 +63,7 @@ export class ArtisanComponent implements OnInit{
   }
   
   ngOnInit(): void {
-    console.log('Initial URL:', this.route.url);
     const category = this.route.snapshot.data['category'];
-    console.log('Current route category:', category);
     if (category) {
       this.filterArtisansByCategory(category);
     }

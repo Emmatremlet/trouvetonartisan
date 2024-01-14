@@ -9,7 +9,7 @@ import { Observable, of } from 'rxjs';
 })
 export class ArtisansService {
 
-  favicon : any ="../assets/favicon.png"
+  favicon: any = "../assets/favicon.png"
 
   private artisans: Artisan[] = [
     {
@@ -17,21 +17,19 @@ export class ArtisansService {
       name: 'Artisan 1',
       job: 'Métier 1',
       category: 'Bâtiment',
-      categoryRoute : 'batiment',
       location: 'Lyon',
       image: this.favicon,
-      description: '',
-      opinion : 4
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam commodo laoreet augue, et condimentum sem varius ut. Duis est est, venenatis et accumsan id, viverra et justo. Suspendisse ornare eu ligula eget auctor. Nulla nec metus vel massa egestas auctor a vitae velit. Nullam rutrum eu risus sit amet volutpat. Phasellus bibendum in massa a convallis. Maecenas vel pellentesque metus. Duis eu luctus lectus. Morbi elit nibh, euismod a tellus et, scelerisque egestas orci. Phasellus ornare ut urna et ornare. In lorem sapien, semper id sollicitudin sed, suscipit ut eros. Vivamus et ante congue, varius elit id, varius odio. Pellentesque interdum orci dictum, hendrerit orci non, pulvinar magna. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Suspendisse sed mi nisi.',
+      opinion: 4
     },
     {
       id: 2,
       name: 'Artisan 2',
       job: 'Métier 2',
       category: 'Services',
-      categoryRoute : 'services',
       location: 'Paris',
       image: this.favicon,
-      description: '',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam commodo laoreet augue, et condimentum sem varius ut. Duis est est, venenatis et accumsan id, viverra et justo. Suspendisse ornare eu ligula eget auctor. Nulla nec metus vel massa egestas auctor a vitae velit. Nullam rutrum eu risus sit amet volutpat. Phasellus bibendum in massa a convallis. Maecenas vel pellentesque metus. Duis eu luctus lectus. Morbi elit nibh, euismod a tellus et, scelerisque egestas orci. Phasellus ornare ut urna et ornare. In lorem sapien, semper id sollicitudin sed, suscipit ut eros. Vivamus et ante congue, varius elit id, varius odio. Pellentesque interdum orci dictum, hendrerit orci non, pulvinar magna. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Suspendisse sed mi nisi.',
       opinion: 4.5
     },
     {
@@ -39,10 +37,9 @@ export class ArtisansService {
       name: 'Artisan 3',
       job: 'Métier 3',
       category: 'Fabrication',
-      categoryRoute : 'fabrication',
       location: 'Marseille',
       image: this.favicon,
-      description: '',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam commodo laoreet augue, et condimentum sem varius ut. Duis est est, venenatis et accumsan id, viverra et justo. Suspendisse ornare eu ligula eget auctor. Nulla nec metus vel massa egestas auctor a vitae velit. Nullam rutrum eu risus sit amet volutpat. Phasellus bibendum in massa a convallis. Maecenas vel pellentesque metus. Duis eu luctus lectus. Morbi elit nibh, euismod a tellus et, scelerisque egestas orci. Phasellus ornare ut urna et ornare. In lorem sapien, semper id sollicitudin sed, suscipit ut eros. Vivamus et ante congue, varius elit id, varius odio. Pellentesque interdum orci dictum, hendrerit orci non, pulvinar magna. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Suspendisse sed mi nisi.',
       opinion: 3
     },
     {
@@ -50,21 +47,24 @@ export class ArtisansService {
       name: 'Artisan 4',
       job: 'Métier 4',
       category: 'Alimentation',
-      categoryRoute : 'alimentation',
       location: 'Bordeaux',
       image: this.favicon,
-      description: '',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam commodo laoreet augue, et condimentum sem varius ut. Duis est est, venenatis et accumsan id, viverra et justo. Suspendisse ornare eu ligula eget auctor. Nulla nec metus vel massa egestas auctor a vitae velit. Nullam rutrum eu risus sit amet volutpat. Phasellus bibendum in massa a convallis. Maecenas vel pellentesque metus. Duis eu luctus lectus. Morbi elit nibh, euismod a tellus et, scelerisque egestas orci. Phasellus ornare ut urna et ornare. In lorem sapien, semper id sollicitudin sed, suscipit ut eros. Vivamus et ante congue, varius elit id, varius odio. Pellentesque interdum orci dictum, hendrerit orci non, pulvinar magna. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Suspendisse sed mi nisi.',
       opinion: 3
     },
   ];
 
   getArtisans(): Observable<Artisan[]> {
-    return of([...this.artisans]); 
+    return of([...this.artisans]);
   }
 
   getArtisanByCategory(category: string): Observable<Artisan | undefined> {
     const artisan = this.artisans.find(art => art.category === category);
-    return of(artisan);  }
+    return of(artisan);
+  }
   
+  getArtisanById(id: number): Artisan | undefined {
+    return this.artisans.find(artisan => artisan.id === id);
+  }
 }
 
