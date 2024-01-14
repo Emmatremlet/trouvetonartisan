@@ -2,8 +2,8 @@ import { Component, Input } from '@angular/core';
 import { ArtisansService } from '../artisans.service';
 import { Artisan } from '../artisan.model';
 import { ActivatedRoute } from '@angular/router';
-import emailjs, { EmailJSResponseStatus } from '@emailjs/browser';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import * as nodemailer from 'nodemailer';
 
 
 
@@ -47,17 +47,32 @@ export class ArtisansSheetComponent {
     }
   }
   
-  public sendEmail(e: Event) {
-    e.preventDefault();
-    emailjs.sendForm('service_ptlbqr8', 'template_16vskto', e.target as HTMLFormElement, '-zAyczA1-KABOJJnO')
-      .then((result: EmailJSResponseStatus) => {
-        console.log(result.text);
-        alert("SUCCESS!");
-      }, (error) => {
-        console.log(error.text);
-        alert("FAILED...")
-      });
-    this.contactForm.reset();
+  sendEmail() {
+    const formData = this.contactForm.value;
+
+    const transporter = nodemailer.createTransport({
+      host: 'localhost', // Adresse du serveur MailDev
+      port: 1025, // Port par défaut de MailDev
+      secure: false, // Ne pas utiliser de connexion sécurisée
+      auth: {
+        user: '', // Laisser vide pour MailDev
+        pass: ''  // Laisser vide pour MailDev
+      }
+    });
+
+    const mailOptions = {
+      from: formData.email,
+      to: 'destination@example.com', 
+      subject: formData.object,
+      text: `De: ${formData.firstName} ${formData.lastName}\nEmail: ${formData.email}\n\n${formData.comments}`
+    };
+
+    transporter.sendMail(mailOptions, (error: any, info: any) => {
+      if (error) {
+        return console.log(error);
+      }
+      console.log('Message sent: %s', info.messageId);
+    });
   }
 
 }

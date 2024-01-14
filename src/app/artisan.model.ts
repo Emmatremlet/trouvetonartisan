@@ -4,6 +4,7 @@ export interface Artisan {
   job: string;
   category: string;
   location: string;
+  site: string;
   image: any;
   description: string;
   opinion: number;

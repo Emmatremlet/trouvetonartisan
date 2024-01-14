@@ -88,6 +88,7 @@
           <p class="location">
             <strong>Localisation</strong> : {{ artisan?.location }}
           </p>
+          <p class="site">{{artisan?.site}}</p>
         </div>
       </div>
       <div class="container container-description">
@@ -101,7 +102,7 @@
         <h4>Formulaire de contact : </h4>
         <form
           formGroup="contactForm"
-          (ngSubmit)="sendEmail($event)"
+          (ngSubmit)="sendEmail()"
           method="post"
           class="contact_form"
         >
