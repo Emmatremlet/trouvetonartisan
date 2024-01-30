@@ -7,6 +7,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app.routes';
 import { RouterModule } from '@angular/router';
 import { ArtisansSheetComponent } from './artisans-sheet/artisans-sheet.component';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { ArtisansService } from './artisans.service';
+
 
 @NgModule({
   declarations: [
@@ -15,8 +18,16 @@ import { ArtisansSheetComponent } from './artisans-sheet/artisans-sheet.componen
     ArtisanComponent,
     ArtisansSheetComponent,
   ],
-  imports: [FormsModule, BrowserModule, AppRoutingModule, RouterModule, ReactiveFormsModule],
-  providers: [],
+  imports: [
+    FormsModule,
+    BrowserModule,
+    AppRoutingModule,
+    RouterModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    HttpClient
+  ],
+  providers: [ArtisansService],
   bootstrap: [AppComponent],
   exports: [],
 })

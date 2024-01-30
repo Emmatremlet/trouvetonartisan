@@ -15,6 +15,7 @@ import * as nodemailer from 'nodemailer';
   styleUrl: './artisans-sheet.component.css'
 })
 export class ArtisansSheetComponent {
+  favicon: any = '../assets/favicon.png';
   @Input() name: string = ''
   @Input() job: string = ''
   @Input() category: string = ''
@@ -43,20 +44,23 @@ export class ArtisansSheetComponent {
     const idParam = this.route.snapshot.paramMap.get('id');
     if (idParam !== null) {
       const artisanId = +idParam;
-      this.artisan = this.artisanService.getArtisanById(artisanId);
+      this.artisanService.getArtisanById(artisanId).subscribe((artisan) => {
+        this.artisan = artisan;
+      });
     }
   }
+
   
   sendEmail() {
     const formData = this.contactForm.value;
 
     const transporter = nodemailer.createTransport({
-      host: 'localhost', // Adresse du serveur MailDev
-      port: 1025, // Port par défaut de MailDev
-      secure: false, // Ne pas utiliser de connexion sécurisée
+      host: 'localhost', 
+      port: 1025,
+      secure: false,
       auth: {
-        user: '', // Laisser vide pour MailDev
-        pass: ''  // Laisser vide pour MailDev
+        user: '', 
+        pass: '' 
       }
     });
 

@@ -9,13 +9,13 @@
         <div class="picture col-sm-6">
           <img
             class="image"
-            src="{{ artisan?.image }}"
+            src="{{ favicon }}"
             alt="image de société de l'artisan"
           />
         </div>
         <div class="details col-sm-6 my-auto">
           <h2 class="title-artisan">{{ artisan?.name }}</h2>
-          <h3 class="job">{{ artisan?.job }}</h3>
+          <h3 class="job">{{ artisan?.specialty }}</h3>
           <div class="opinion">
             <p>Avis</p>
             <div class="stars">
@@ -88,18 +88,18 @@
           <p class="location">
             <strong>Localisation</strong> : {{ artisan?.location }}
           </p>
-          <p class="site">{{artisan?.site}}</p>
+          <p class="site">{{ artisan?.website }}</p>
         </div>
       </div>
       <div class="container container-description">
         <div class="div-description">
           <p class="description">
-            <strong>A propos</strong> : {{ artisan?.description }}
+            <strong>A propos</strong> : {{ artisan?.about }}
           </p>
         </div>
       </div>
       <div class="container-contact">
-        <h4>Formulaire de contact : </h4>
+        <h4>Formulaire de contact :</h4>
         <form
           formGroup="contactForm"
           (ngSubmit)="sendEmail()"
@@ -140,7 +140,7 @@
           <div class="object input">
             <input
               type="text"
-              class="object_box "
+              class="object_box"
               name="object"
               formControlName="object"
               placeholder="Objet"
@@ -160,10 +160,7 @@
           </div>
 
           <div class="submit_block">
-            <button
-              type="submit"
-              class="submit btn btn-primary"
-            >
+            <button type="submit" class="submit btn btn-primary">
               Envoyer
             </button>
           </div>

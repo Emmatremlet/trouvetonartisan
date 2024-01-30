@@ -29,6 +29,7 @@ export class ArtisanComponent implements OnInit{
 
   constructor(private artisanService: ArtisansService, private route: ActivatedRoute, private cdRef: ChangeDetectorRef) {
     this.artisanService.getArtisans().subscribe(artisans => {
+      console.log(artisans);
       this.artisans = artisans;
       this.sortedArtisans = [...this.artisans];
     });
@@ -66,6 +67,12 @@ export class ArtisanComponent implements OnInit{
     const category = this.route.snapshot.data['category'];
     if (category) {
       this.filterArtisansByCategory(category);
+    } else {
+      this.artisanService.getArtisans().subscribe((artisans) => {
+        this.artisans = artisans;
+        this.sortedArtisans = [...this.artisans];
+        this.cdRef.detectChanges();
+      });
     }
   }
   
