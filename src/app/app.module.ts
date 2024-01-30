@@ -25,9 +25,8 @@ import { ArtisansService } from './artisans.service';
     RouterModule,
     ReactiveFormsModule,
     HttpClientModule,
-    HttpClient
   ],
-  providers: [ArtisansService],
+  providers: [HttpClient, ArtisansService],
   bootstrap: [AppComponent],
   exports: [],
 })
