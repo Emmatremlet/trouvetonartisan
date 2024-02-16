@@ -7,9 +7,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app.routes';
 import { RouterModule } from '@angular/router';
 import { ArtisansSheetComponent } from './artisans-sheet/artisans-sheet.component';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, provideHttpClient } from '@angular/common/http';
 import { ArtisansService } from './artisans.service';
-
 
 @NgModule({
   declarations: [
@@ -26,7 +25,7 @@ import { ArtisansService } from './artisans.service';
     ReactiveFormsModule,
     HttpClientModule,
   ],
-  providers: [HttpClient, ArtisansService],
+  providers: [ArtisansService, provideHttpClient()],
   bootstrap: [AppComponent],
   exports: [],
 })

@@ -12,10 +12,10 @@ export class ArtisansService {
   constructor(private http: HttpClient) {}
 
   getArtisans(): Observable<Artisan[]> {
-    return this.http.get<Artisan[]>(`${this.apiUrl}/artisans`);
+    return this.http.get<Artisan[]>(`${this.apiUrl}`);
   }
 
   getArtisanById(id: number): Observable<Artisan> {
-    return this.http.get<Artisan>(`${this.apiUrl}/artisans/${id}`);
+    return this.http.get<Artisan>(`${this.apiUrl}/${id}`);
   }
 }
