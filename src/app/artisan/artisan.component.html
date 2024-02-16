@@ -15,8 +15,7 @@
             color: #00497c;
             background-color: #fff;
           "
-          (ngModel)="selectedCategory"
-          (ngModelChange)="sortArtisans()"
+          (change)="sortArtisans($event)"
         >
           <option value="">Toutes les catégories</option>
           <option value="Bâtiment">Bâtiment</option>
@@ -44,7 +43,7 @@
   <div class="container container-cards">
     <div class="row mx-auto">
       <div *ngFor="let artisan of sortedArtisans" class="col-sm-4 mb-3">
-        <div class="card mx-auto" style="width: 19rem">
+        <div class="card mx-auto" style="width: 22rem">
           <img src="{{ favicon }}" class="card-img-top" alt="favicon du site" />
           <div class="card-body">
             <div class="name-location">

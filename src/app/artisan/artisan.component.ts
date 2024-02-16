@@ -31,7 +31,6 @@ export class ArtisanComponent implements OnInit {
     private cdRef: ChangeDetectorRef,
   ) {
     this.artisanService.getArtisans().subscribe((artisans) => {
-      console.log(artisans);
       this.artisans = artisans;
       this.sortedArtisans = [...this.artisans];
     });
@@ -41,19 +40,19 @@ export class ArtisanComponent implements OnInit {
     console.log("On rentre dans la fonction searchArtisans");
     const target = event.target as HTMLSelectElement;
     this.searchTerm = target.value;
-    this.sortedArtisans = this.artisans.filter((artisan) =>
-      artisan.name.toLowerCase().includes(target.value.toLowerCase()),
-    );
-    this.sortedArtisans = this.artisans.filter((artisan) =>
-      artisan.specialty.toLowerCase().includes(target.value.toLowerCase()),
-    );
-    this.sortedArtisans = this.artisans.filter((artisan) =>
-      artisan.location.toLowerCase().includes(target.value.toLowerCase()),
+    this.sortedArtisans = this.artisans.filter(
+      (artisan) =>
+        artisan.name.toLowerCase().includes(this.searchTerm) ||
+        artisan.specialty.toLowerCase().includes(this.searchTerm) ||
+        artisan.location.toLowerCase().includes(this.searchTerm),
     );
   }
 
-  sortArtisans() {
+  sortArtisans(event: Event) {
     console.log('on rentre dans la fonction sortArtisans');
+    const target = event.target as HTMLSelectElement;
+    console.log(target);
+    this.selectedCategory = target.value;
     console.log(this.selectedCategory);
 
     if (this.selectedCategory) {
