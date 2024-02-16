@@ -10,8 +10,13 @@
         <select
           class="category"
           name="category"
-          style=" border:solid 1px #0074C7; color:#00497C; background-color:#FFF;"
-          (change)="sortArtisans($event)"
+          style="
+            border: solid 1px #0074c7;
+            color: #00497c;
+            background-color: #fff;
+          "
+          (ngModel)="selectedCategory"
+          (ngModelChange)="sortArtisans()"
         >
           <option value="">Toutes les catégories</option>
           <option value="Bâtiment">Bâtiment</option>
@@ -21,7 +26,7 @@
         </select>
       </div>
 
-      <form class="d-flex col-sm-5 search" role="search">
+      <form class="d-flex col-sm-5 search" role="search" name="search">
         <input
           class="form-control me-2"
           type="search"
@@ -126,7 +131,9 @@
                   </div>
                 </div>
               </div>
-              <a href="/artisansheet/{{artisan.id}}" class="btn btn-primary">Voir plus</a>
+              <a href="/artisansheet/{{ artisan.id }}" class="btn btn-primary"
+                >Voir plus</a
+              >
             </div>
           </div>
         </div>
