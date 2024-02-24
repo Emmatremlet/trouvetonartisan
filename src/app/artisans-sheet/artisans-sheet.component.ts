@@ -52,31 +52,33 @@ export class ArtisansSheetComponent {
 
   
   sendEmail() {
-    const formData = this.contactForm.value;
+    // const formData = this.contactForm.value;
 
-    const transporter = nodemailer.createTransport({
-      host: 'localhost', 
-      port: 1025,
-      secure: false,
-      auth: {
-        user: '', 
-        pass: '' 
-      }
-    });
+    // const transporter = nodemailer.createTransport({
+    //   host: 'localhost',
+    //   port: 1025,
+    //   secure: false,
+    //   auth: {
+    //     user: '',
+    //     pass: ''
+    //   }
+    // });
 
-    const mailOptions = {
-      from: formData.email,
-      to: 'destination@example.com', 
-      subject: formData.object,
-      text: `De: ${formData.firstName} ${formData.lastName}\nEmail: ${formData.email}\n\n${formData.comments}`
-    };
+    // const mailOptions = {
+    //   from: formData.email,
+    //   to: 'destination@example.com',
+    //   subject: formData.object,
+    //   text: `De: ${formData.firstName} ${formData.lastName}\nEmail: ${formData.email}\n\n${formData.comments}`
+    // };
 
-    transporter.sendMail(mailOptions, (error: any, info: any) => {
-      if (error) {
-        return console.log(error);
-      }
-      console.log('Message sent: %s', info.messageId);
-    });
+    // transporter.sendMail(mailOptions, (error: any, info: any) => {
+    //   if (error) {
+    //     return console.log(error);
+    //   }
+    //   console.log('Message sent: %s', info.messageId);
+    // });
+    
+    window.alert("Le message est envoyé");
   }
 
 }

@@ -4,6 +4,8 @@ import { ArtisansService } from '../artisans.service';
 import { Artisan } from '../artisan.model';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { SearchService } from '../search.service';
 
 @Component({
   selector: 'app-artisan',
@@ -22,22 +24,42 @@ export class ArtisanComponent implements OnInit {
   selectedCategory: string = '';
   searchTerm: string = '';
   category!: string;
-
+  private searchSubscription: Subscription;
   artisan: Artisan | undefined;
 
   constructor(
     private artisanService: ArtisansService,
     private route: ActivatedRoute,
     private cdRef: ChangeDetectorRef,
+    private searchService: SearchService,
   ) {
+    this.searchSubscription = this.searchService.searchTerm$.subscribe(
+      (term) => {
+        this.searchTerm = term;
+        this.searchArt();
+      },
+    );
     this.artisanService.getArtisans().subscribe((artisans) => {
       this.artisans = artisans;
       this.sortedArtisans = [...this.artisans];
     });
   }
+  searchArt(): void {
+    this.sortedArtisans = this.artisans.filter(
+      (artisan) =>
+        artisan.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        artisan.specialty
+          .toLowerCase()
+          .includes(this.searchTerm.toLowerCase()) ||
+        artisan.location.toLowerCase().includes(this.searchTerm.toLowerCase()),
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.searchSubscription.unsubscribe();
+  }
 
   searchArtisans(event: Event) {
-    console.log("On rentre dans la fonction searchArtisans");
     const target = event.target as HTMLSelectElement;
     this.searchTerm = target.value;
     this.sortedArtisans = this.artisans.filter(
@@ -49,12 +71,8 @@ export class ArtisanComponent implements OnInit {
   }
 
   sortArtisans(event: Event) {
-    console.log('on rentre dans la fonction sortArtisans');
     const target = event.target as HTMLSelectElement;
-    console.log(target);
     this.selectedCategory = target.value;
-    console.log(this.selectedCategory);
-
     if (this.selectedCategory) {
       this.filterArtisansByCategory(this.selectedCategory);
     } else {
