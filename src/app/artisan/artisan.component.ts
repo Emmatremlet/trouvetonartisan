@@ -45,6 +45,9 @@ export class ArtisanComponent implements OnInit {
     });
   }
   searchArt(): void {
+    if (!this.artisans) {
+      return;
+    }
     this.sortedArtisans = this.artisans.filter(
       (artisan) =>
         artisan.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
