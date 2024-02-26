@@ -17,6 +17,7 @@ import { SearchService } from '../search.service';
 export class ArtisanComponent implements OnInit {
   location: any = '../assets/location.png';
   search: any = '../assets/search.png';
+  halfStar: any = '../assets/half-star.png';
   favicon: any = '../assets/favicon.png';
   @Input() id: number = 0;
   artisans!: Artisan[];
@@ -94,6 +95,27 @@ export class ArtisanComponent implements OnInit {
       );
       this.cdRef.detectChanges();
     });
+  }
+
+  opinion(artisan: any) {
+    let wholePart = Math.floor(artisan.note);
+    let decimal = artisan.note - wholePart;
+    let halfPart = 0;
+    let empty = 0;
+    if (decimal != 0) {
+      halfPart = 1;
+    }
+
+    if (halfPart + wholePart != 5) {
+      empty = 5 - (halfPart + wholePart);
+    }
+    const fullnote = Array(wholePart).fill(0);
+    const halfnote = Array(halfPart).fill(0);
+    const emptynote = Array(empty).fill(0);
+
+    const note = [fullnote, halfnote, emptynote];
+
+    return note;
   }
 
   ngOnInit(): void {
