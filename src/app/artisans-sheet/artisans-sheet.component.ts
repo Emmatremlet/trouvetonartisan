@@ -4,33 +4,38 @@ import { Artisan } from '../artisan.model';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as nodemailer from 'nodemailer';
+import { CommonModule } from '@angular/common';
+import { consumerPollProducersForChange } from '@angular/core/primitives/signals';
 
 
 
 @Component({
   selector: 'app-artisans-sheet',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './artisans-sheet.component.html',
-  styleUrl: './artisans-sheet.component.css'
+  styleUrl: './artisans-sheet.component.css',
 })
 export class ArtisansSheetComponent {
   favicon: any = '../assets/favicon.png';
-  @Input() name: string = ''
-  @Input() job: string = ''
-  @Input() category: string = ''
-  @Input() location: string = ''
-  @Input() image: any 
-  @Input() description: string = ''
-  @Input() opinion: string = ''
+  halfStar: any = '../assets/half-star.png';
+
+  @Input() name: string = '';
+  @Input() job: string = '';
+  @Input() category: string = '';
+  @Input() location: string = '';
+  @Input() image: any;
+  @Input() description: string = '';
 
   artisan: Artisan | undefined;
 
   contactForm: FormGroup;
 
-
-
-  constructor(private artisanService: ArtisansService, private route: ActivatedRoute, private formBuilder: FormBuilder) {
+  constructor(
+    private artisanService: ArtisansService,
+    private route: ActivatedRoute,
+    private formBuilder: FormBuilder,
+  ) {
     this.contactForm = this.formBuilder.group({
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
@@ -41,44 +46,62 @@ export class ArtisansSheetComponent {
   }
 
   ngOnInit(): void {
-    const idParam = this.route.snapshot.paramMap.get('id');
-    if (idParam !== null) {
-      const artisanId = +idParam;
-      this.artisanService.getArtisanById(artisanId).subscribe((artisan) => {
-        this.artisan = artisan;
+    let id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.artisanService.getArtisans().subscribe((data) => {
+        this.artisan = data.find((artisan) => artisan.id === id);
       });
+    } else {
+      console.error('ID non défini');
     }
   }
 
-  
-  sendEmail() {
-    // const formData = this.contactForm.value;
+  opinion(artisan: any) {
+    let wholePart = Math.floor(artisan.note);
+    let decimal = artisan.note - wholePart;
+    let halfPart = 0;
+    let empty = 0;
+    if (decimal != 0) {
+      halfPart = 1;
+    }
 
-    // const transporter = nodemailer.createTransport({
-    //   host: 'localhost',
-    //   port: 1025,
-    //   secure: false,
-    //   auth: {
-    //     user: '',
-    //     pass: ''
-    //   }
-    // });
+    if (halfPart + wholePart != 5) {
+      empty = 5 - (halfPart + wholePart);
+    }
+    const fullnote = Array(wholePart).fill(0);
+    const halfnote = Array(halfPart).fill(0);
+    const emptynote = Array(empty).fill(0);
 
-    // const mailOptions = {
-    //   from: formData.email,
-    //   to: 'destination@example.com',
-    //   subject: formData.object,
-    //   text: `De: ${formData.firstName} ${formData.lastName}\nEmail: ${formData.email}\n\n${formData.comments}`
-    // };
+    const note = [fullnote, halfnote, emptynote];
 
-    // transporter.sendMail(mailOptions, (error: any, info: any) => {
-    //   if (error) {
-    //     return console.log(error);
-    //   }
-    //   console.log('Message sent: %s', info.messageId);
-    // });
-    
-    window.alert("Le message est envoyé");
+    return note;
   }
 
+  sendEmail() {
+  //   const formData = this.contactForm.value;
+
+  //   const transporter = nodemailer.createTransport({
+  //     host: 'localhost',
+  //     port: 1025,
+  //     secure: false,
+  //     auth: {
+  //       user: '',
+  //       pass: ''
+  //     }
+  //   });
+
+  //   const mailOptions = {
+  //     from: formData.email,
+  //     to: 'destination@example.com',
+  //     subject: formData.object,
+  //     text: `De: ${formData.firstName} ${formData.lastName}\nEmail: ${formData.email}\n\n${formData.comments}`
+  //   };
+
+  //   transporter.sendMail(mailOptions, (error: any, info: any) => {
+  //     if (error) {
+  //       return console.log(error);
+  //     }
+  //     console.log('Message sent: %s', info.messageId);
+  //   });
+  }
 }

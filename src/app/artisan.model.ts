@@ -1,5 +1,5 @@
 export interface Artisan {
-  id: number;
+  id: string;
   name: string;
   specialty: string;
   note: number;

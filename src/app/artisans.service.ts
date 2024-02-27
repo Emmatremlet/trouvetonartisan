@@ -15,7 +15,7 @@ export class ArtisansService {
     return this.http.get<Artisan[]>(`${this.apiUrl}`);
   }
 
-  getArtisanById(id: number): Observable<Artisan> {
-    return this.http.get<Artisan>(`${this.apiUrl}/${id}`);
-  }
+  // getArtisanById(id: number): Observable<Artisan> {
+  //   return this.http.get<Artisan>(`${this.apiUrl}/${id}`);
+  // }
 }
