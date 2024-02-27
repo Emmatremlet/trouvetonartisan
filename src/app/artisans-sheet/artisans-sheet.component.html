@@ -71,7 +71,7 @@
         <h4>Formulaire de contact :</h4>
         <form
           formGroup="contactForm"
-          (ngSubmit)="sendEmail()"
+          (ngSubmit)="sendEmail($event, artisan)"
           method="post"
           class="contact_form"
         >
@@ -129,9 +129,10 @@
           </div>
 
           <div class="submit_block">
-            <button type="submit" class="submit btn btn-primary">
+            <button id="liveAlertBtn" type="submit" class="submit btn btn-primary">
               Envoyer
             </button>
+            <div id="liveAlertPlaceholder"></div>
           </div>
         </form>
       </div>

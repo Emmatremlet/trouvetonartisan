@@ -3,11 +3,8 @@ import { ArtisansService } from '../artisans.service';
 import { Artisan } from '../artisan.model';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import * as nodemailer from 'nodemailer';
 import { CommonModule } from '@angular/common';
-import { consumerPollProducersForChange } from '@angular/core/primitives/signals';
-
-
+import emailjs, { EmailJSResponseStatus } from '@emailjs/browser';
 
 @Component({
   selector: 'app-artisans-sheet',
@@ -77,31 +74,49 @@ export class ArtisansSheetComponent {
     return note;
   }
 
-  sendEmail() {
-  //   const formData = this.contactForm.value;
+  private alertEmail(message: any, type: any) {
+    const alertPlaceholder = document.getElementById('liveAlertPlaceholder')!;
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = [
+      `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+      `   <div>${message}</div>`,
+      '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+      '</div>',
+    ].join('');
+    alertPlaceholder.append(wrapper);
+  }
 
-  //   const transporter = nodemailer.createTransport({
-  //     host: 'localhost',
-  //     port: 1025,
-  //     secure: false,
-  //     auth: {
-  //       user: '',
-  //       pass: ''
-  //     }
-  //   });
+  public sendEmail(e: Event, artisan: any) {
+    e.preventDefault();
 
-  //   const mailOptions = {
-  //     from: formData.email,
-  //     to: 'destination@example.com',
-  //     subject: formData.object,
-  //     text: `De: ${formData.firstName} ${formData.lastName}\nEmail: ${formData.email}\n\n${formData.comments}`
-  //   };
-
-  //   transporter.sendMail(mailOptions, (error: any, info: any) => {
-  //     if (error) {
-  //       return console.log(error);
-  //     }
-  //     console.log('Message sent: %s', info.messageId);
-  //   });
+    const alertTrigger = document.getElementById('liveAlertBtn')!;
+    const artisanName = artisan.name;
+    emailjs
+      .sendForm(
+        'service_ptlbqr8',
+        'template_hehgb0t',
+        (e.target as HTMLFormElement) && artisanName,
+        '-zAyczA1-KABOJJnO',
+      )
+      .then(
+        (result: EmailJSResponseStatus) => {
+          console.log(result.text);
+          this.contactForm.reset();
+          alert('SUCCESS!');
+          alertTrigger.addEventListener('click', () => {
+            this.alertEmail('Votre message a été envoyé !', 'success');
+          });
+        },
+        (error) => {
+          console.log(error.text);
+          alert('FAILED...');
+          alertTrigger.addEventListener('click', () => {
+            this.alertEmail(
+              "ERREUR ! Votre message n'a pas été envoyé !",
+              'danger',
+            );
+          });
+        },
+      );
   }
 }
