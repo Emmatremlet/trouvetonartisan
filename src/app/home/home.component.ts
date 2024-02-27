@@ -3,7 +3,6 @@ import { ArtisansService } from '../artisans.service';
 import { CommonModule } from '@angular/common';
 import { Artisan } from '../artisan.model';
 
-declare var google: any;
 
 @Component({
   selector: 'app-home',
@@ -35,10 +34,8 @@ export class HomeComponent {
   halfnote3: any[] = [];
   halfStars3: any;
   decimal3: any;
-  location3: any;
-  map3: any;
 
-  constructor(private artisanService: ArtisansService) {}
+  constructor(private artisanService: ArtisansService) { }
 
   ngOnInit(): void {
     this.artisanService.getArtisans().subscribe((artisans: any[]) => {
@@ -79,33 +76,6 @@ export class HomeComponent {
       }
       this.fullnote3 = Array(this.stars3).fill(0);
       this.halfnote3 = Array(this.halfStars3).fill(0);
-      this.location3 = this.thirdArtisan.location;
-      this.initMap(this.thirdArtisan, "map3");
     }
-  }
-
-  initMap(artisan: any, id: any): void {
-    const map = new google.maps.Map(document.getElementById(id), {
-      center: { lat: 48.858599614043435, lng: 2.3621384610414586 },
-      zoom: 8,
-    });
-
-    const geocoder = new google.maps.Geocoder();
-    geocoder.geocode(
-      { address: artisan.location },
-      (results: any, status: any) => {
-        if (status === 'OK') {
-          const marker = new google.maps.Marker({
-            map: map,
-            position: results[0].geometry.location,
-            title: artisan.name,
-          });
-        } else {
-          console.error(
-            'Geocode was not successful for the following reason: ' + status,
-          );
-        }
-      },
-    );
   }
 }

@@ -34,7 +34,7 @@ export class AppComponent {
   }
 
   searchArtisans(event: Event) {
-    const searchTerm = (event.target as HTMLInputElement).value;
+    const searchTerm = (event.target as HTMLInputElement).value.toLowerCase();
     this.searchService.setSearchTerm(searchTerm);
     this.router.navigate(['/artisan']);
   }

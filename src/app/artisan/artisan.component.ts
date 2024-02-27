@@ -65,7 +65,7 @@ export class ArtisanComponent implements OnInit {
 
   searchArtisans(event: Event) {
     const target = event.target as HTMLSelectElement;
-    this.searchTerm = target.value;
+    this.searchTerm = target.value.toLowerCase();
     this.sortedArtisans = this.artisans.filter(
       (artisan) =>
         artisan.name.toLowerCase().includes(this.searchTerm) ||
