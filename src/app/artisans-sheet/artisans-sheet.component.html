@@ -71,7 +71,7 @@
         <h4>Formulaire de contact :</h4>
         <form
           formGroup="contactForm"
-          (ngSubmit)="sendEmail($event, artisan)"
+          ngSubmit="sendEmail($event, artisan)"
           method="post"
           class="contact_form"
         >

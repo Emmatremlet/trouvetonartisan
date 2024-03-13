@@ -74,7 +74,7 @@ export class ArtisansSheetComponent {
     return note;
   }
 
-  private alertEmail(message: any, type: any) {
+  public alertEmail(message: any, type: any) {
     const alertPlaceholder = document.getElementById('liveAlertPlaceholder')!;
     const wrapper = document.createElement('div');
     wrapper.innerHTML = [
@@ -88,6 +88,7 @@ export class ArtisansSheetComponent {
 
   public sendEmail(e: Event, artisan: any) {
     e.preventDefault();
+    console.log('on rentre dans la fonction');
 
     const alertTrigger = document.getElementById('liveAlertBtn')!;
     const artisanName = artisan.name;
@@ -102,14 +103,12 @@ export class ArtisansSheetComponent {
         (result: EmailJSResponseStatus) => {
           console.log(result.text);
           this.contactForm.reset();
-          alert('SUCCESS!');
           alertTrigger.addEventListener('click', () => {
             this.alertEmail('Votre message a été envoyé !', 'success');
           });
         },
         (error) => {
           console.log(error.text);
-          alert('FAILED...');
           alertTrigger.addEventListener('click', () => {
             this.alertEmail(
               "ERREUR ! Votre message n'a pas été envoyé !",
