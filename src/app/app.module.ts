@@ -26,7 +26,6 @@ import { OpinionPipe } from './opinion.pipe';
     RouterModule,
     ReactiveFormsModule,
     HttpClientModule,
-    OpinionPipe
   ],
   providers: [ArtisansService, provideHttpClient()],
   bootstrap: [AppComponent],

@@ -19,7 +19,7 @@
           <div class="opinion">
             <p>Avis</p>
             <div class="stars">
-              <div class="star" *ngFor="let star of opinion(artisan)[0]">
+              <div class="star" *ngFor="let star of (artisan | opinion)[0]">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
@@ -33,10 +33,10 @@
                   />
                 </svg>
               </div>
-              <div class="star" *ngFor="let star of opinion(artisan)[1]">
+              <div class="star" *ngFor="let star of (artisan | opinion)[1]">
                 <img src="{{ halfStar }}" alt="demi-étoiles" />
               </div>
-              <div class="star" *ngFor="let star of opinion(artisan)[2]">
+              <div class="star" *ngFor="let star of (artisan | opinion)[2]">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"

@@ -6,11 +6,12 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { SearchService } from '../search.service';
+import { OpinionPipe } from '../opinion.pipe';
 
 @Component({
   selector: 'app-artisan',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, OpinionPipe],
   templateUrl: './artisan.component.html',
   styleUrl: './artisan.component.css',
 })
@@ -97,26 +98,6 @@ export class ArtisanComponent implements OnInit {
     });
   }
 
-  opinion(artisan: any) {
-    let wholePart = Math.floor(artisan.note);
-    let decimal = artisan.note - wholePart;
-    let halfPart = 0;
-    let empty = 0;
-    if (decimal != 0) {
-      halfPart = 1;
-    }
-
-    if (halfPart + wholePart != 5) {
-      empty = 5 - (halfPart + wholePart);
-    }
-    const fullnote = Array(wholePart).fill(0);
-    const halfnote = Array(halfPart).fill(0);
-    const emptynote = Array(empty).fill(0);
-
-    const note = [fullnote, halfnote, emptynote];
-
-    return note;
-  }
 
   ngOnInit(): void {
     const category = this.route.snapshot.data['category'];

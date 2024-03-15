@@ -2,15 +2,15 @@ import { ArtisansService } from '../artisans.service';
 import { Artisan } from '../artisan.model';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import emailjs, { EmailJSResponseStatus } from '@emailjs/browser';
 import { Component, Input, NgIterable } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EmailService } from '../email.service';
+import { OpinionPipe } from '../opinion.pipe';
 
 @Component({
   selector: 'app-artisans-sheet',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, OpinionPipe],
   templateUrl: './artisans-sheet.component.html',
   styleUrl: './artisans-sheet.component.css',
 })
@@ -53,27 +53,6 @@ export class ArtisansSheetComponent {
     } else {
       console.error('ID non défini');
     }
-  }
-
-  opinion(artisan: any) {
-    let wholePart = Math.floor(artisan.note);
-    let decimal = artisan.note - wholePart;
-    let halfPart = 0;
-    let empty = 0;
-    if (decimal != 0) {
-      halfPart = 1;
-    }
-
-    if (halfPart + wholePart != 5) {
-      empty = 5 - (halfPart + wholePart);
-    }
-    const fullnote = Array(wholePart).fill(0);
-    const halfnote = Array(halfPart).fill(0);
-    const emptynote = Array(empty).fill(0);
-
-    const note = [fullnote, halfnote, emptynote];
-
-    return note;
   }
 
   public alertEmail(message: any, type: any) {
