@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
 import { ArtisansSheetComponent } from './artisans-sheet/artisans-sheet.component';
 import { HttpClientModule, provideHttpClient } from '@angular/common/http';
 import { ArtisansService } from './artisans.service';
+import { OpinionPipe } from './opinion.pipe';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { ArtisansService } from './artisans.service';
     HomeComponent,
     ArtisanComponent,
     ArtisansSheetComponent,
+    OpinionPipe,
   ],
   imports: [
     FormsModule,
@@ -24,6 +26,7 @@ import { ArtisansService } from './artisans.service';
     RouterModule,
     ReactiveFormsModule,
     HttpClientModule,
+    OpinionPipe
   ],
   providers: [ArtisansService, provideHttpClient()],
   bootstrap: [AppComponent],

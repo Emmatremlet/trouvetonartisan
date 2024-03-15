@@ -1,10 +1,11 @@
-import { Component, Input } from '@angular/core';
 import { ArtisansService } from '../artisans.service';
 import { Artisan } from '../artisan.model';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CommonModule } from '@angular/common';
 import emailjs, { EmailJSResponseStatus } from '@emailjs/browser';
+import { Component, Input, NgIterable } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { EmailService } from '../email.service';
 
 @Component({
   selector: 'app-artisans-sheet',
@@ -32,6 +33,7 @@ export class ArtisansSheetComponent {
     private artisanService: ArtisansService,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
+    private emailService: EmailService,
   ) {
     this.contactForm = this.formBuilder.group({
       firstname: ['', Validators.required],
@@ -86,36 +88,28 @@ export class ArtisansSheetComponent {
     alertPlaceholder.append(wrapper);
   }
 
-  public sendEmail(e: Event, artisan: any) {
+  
+  onSubmit(e: Event) {
     e.preventDefault();
-    console.log('on rentre dans la fonction');
 
     const alertTrigger = document.getElementById('liveAlertBtn')!;
-    const artisanName = artisan.name;
-    emailjs
-      .sendForm(
-        'service_ptlbqr8',
-        'template_hehgb0t',
-        (e.target as HTMLFormElement) && artisanName,
-        '-zAyczA1-KABOJJnO',
-      )
-      .then(
-        (result: EmailJSResponseStatus) => {
-          console.log(result.text);
-          this.contactForm.reset();
-          alertTrigger.addEventListener('click', () => {
-            this.alertEmail('Votre message a été envoyé !', 'success');
-          });
-        },
-        (error) => {
-          console.log(error.text);
-          alertTrigger.addEventListener('click', () => {
-            this.alertEmail(
-              "ERREUR ! Votre message n'a pas été envoyé !",
-              'danger',
-            );
-          });
-        },
-      );
+    this.emailService
+      .sendEmail(this.contactForm)
+      .then(() => {
+        console.log('Email sent successfully');
+        this.contactForm.reset();
+        alertTrigger.addEventListener('click', () => {
+          this.alertEmail('Votre message a été envoyé !', 'success');
+        });
+      })
+      .catch((error) => {
+        console.error('Failed to send email', error);
+        alertTrigger.addEventListener('click', () => {
+          this.alertEmail(
+            "ERREUR ! Votre message n'a pas été envoyé !",
+            'danger',
+          );
+        });
+      });
   }
 }
