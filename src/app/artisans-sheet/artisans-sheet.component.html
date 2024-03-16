@@ -82,6 +82,7 @@
               name="firstName"
               formControlName="firstname"
               placeholder="Votre prénom"
+              autocomplete="given-name"
               required
             />
           </div>
@@ -92,6 +93,7 @@
               name="lastName"
               formControlName="lastname"
               placeholder="Votre nom"
+              autocomplete="family-name"
               required
             />
           </div>
@@ -113,6 +115,7 @@
               name="object"
               formControlName="object"
               placeholder="Objet"
+              autocomplete="off"
               required
             />
           </div>
@@ -129,7 +132,11 @@
           </div>
 
           <div class="submit_block">
-            <button id="liveAlertBtn" type="submit" class="submit btn btn-primary">
+            <button
+              id="liveAlertBtn"
+              type="submit"
+              class="submit btn btn-primary"
+            >
               Envoyer
             </button>
             <div id="liveAlertPlaceholder"></div>

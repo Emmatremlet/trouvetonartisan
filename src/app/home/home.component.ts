@@ -38,6 +38,7 @@ export class HomeComponent {
   constructor(private artisanService: ArtisansService) {}
 
   ngOnInit(): void {
+    //Function that finds the 3 best artisans based on their rating
     this.artisanService.getArtisans().subscribe((artisans: any[]) => {
       artisans.sort((a, b) => b.note - a.note);
       this.bestArtisan = artisans[0];

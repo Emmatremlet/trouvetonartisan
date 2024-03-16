@@ -4,6 +4,9 @@ import * as emailjs from 'emailjs-com';
 @Injectable({
   providedIn: 'root',
 })
+
+//Service allowing you to send an email using emailjs
+  
 export class EmailService {
   constructor() {}
 

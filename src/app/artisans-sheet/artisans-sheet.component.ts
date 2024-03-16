@@ -44,6 +44,7 @@ export class ArtisansSheetComponent {
     });
   }
 
+  //Function to display the craftsman having the same id as the one in the url
   ngOnInit(): void {
     let id = this.route.snapshot.paramMap.get('id');
     if (id) {
@@ -55,6 +56,7 @@ export class ArtisansSheetComponent {
     }
   }
 
+  //Function to create an alert when the form is submitted in order to know if the action is carried out or not
   public alertEmail(message: any, type: any) {
     const alertPlaceholder = document.getElementById('liveAlertPlaceholder')!;
     const wrapper = document.createElement('div');
@@ -67,28 +69,23 @@ export class ArtisansSheetComponent {
     alertPlaceholder.append(wrapper);
   }
 
-  
+  //Function using EmailService by sending it the form data and which reacts based on the response
   onSubmit(e: Event) {
     e.preventDefault();
 
-    const alertTrigger = document.getElementById('liveAlertBtn')!;
     this.emailService
       .sendEmail(this.contactForm)
       .then(() => {
         console.log('Email sent successfully');
         this.contactForm.reset();
-        alertTrigger.addEventListener('click', () => {
-          this.alertEmail('Votre message a été envoyé !', 'success');
-        });
+        this.alertEmail('Votre message a été envoyé !', 'success');
       })
       .catch((error) => {
         console.error('Failed to send email', error);
-        alertTrigger.addEventListener('click', () => {
-          this.alertEmail(
-            "ERREUR ! Votre message n'a pas été envoyé !",
-            'danger',
-          );
-        });
+        this.alertEmail(
+          "ERREUR ! Votre message n'a pas été envoyé !",
+          'danger',
+        );
       });
   }
 }

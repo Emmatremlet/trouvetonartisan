@@ -46,6 +46,8 @@ export class ArtisanComponent implements OnInit {
       this.sortedArtisans = [...this.artisans];
     });
   }
+
+  // function allowing you to display the artisans sought according to their name, their city or their profession
   searchArt(): void {
     if (!this.artisans) {
       return;
@@ -60,9 +62,12 @@ export class ArtisanComponent implements OnInit {
     );
   }
 
+  //Function to destroy an observable
   ngOnDestroy(): void {
     this.searchSubscription.unsubscribe();
   }
+
+  // function allowing you to display the artisans sought according to their name, their city or their profession
 
   searchArtisans(event: Event) {
     const target = event.target as HTMLSelectElement;
@@ -75,6 +80,7 @@ export class ArtisanComponent implements OnInit {
     );
   }
 
+  //Function reacting to the select tag and which, depending on the user's action, calls the filterArtisansByCategory function
   sortArtisans(event: Event) {
     const target = event.target as HTMLSelectElement;
     this.selectedCategory = target.value;
@@ -89,6 +95,7 @@ export class ArtisanComponent implements OnInit {
     }
   }
 
+  //Function to sort artisans according to their category
   filterArtisansByCategory(category: string): void {
     this.artisanService.getArtisans().subscribe((artisans) => {
       this.sortedArtisans = artisans.filter(
@@ -98,7 +105,7 @@ export class ArtisanComponent implements OnInit {
     });
   }
 
-
+  //Function allowing you to retrieve the category of the URL and display the artisans in this category using the filterArtisansByCategory function
   ngOnInit(): void {
     const category = this.route.snapshot.data['category'];
     if (category) {

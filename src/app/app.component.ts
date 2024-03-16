@@ -33,6 +33,8 @@ export class AppComponent {
     });
   }
 
+  //Function that calls the SearchService and retrieves the user's search
+
   searchArtisans(event: Event) {
     const searchTerm = (event.target as HTMLInputElement).value.toLowerCase();
     this.searchService.setSearchTerm(searchTerm);

@@ -6,6 +6,8 @@ import { Artisan } from './artisan.model';
 @Injectable({
   providedIn: 'root',
 })
+
+//Service to use API data
 export class ArtisansService {
   private apiUrl = '../assets/API/datas.json';
 
@@ -14,5 +16,4 @@ export class ArtisansService {
   getArtisans(): Observable<Artisan[]> {
     return this.http.get<Artisan[]>(`${this.apiUrl}`);
   }
-
 }

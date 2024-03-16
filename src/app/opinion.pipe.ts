@@ -4,6 +4,8 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'opinion',
   standalone: true,
 })
+  
+//Function allowing you to manage craftsmen's notes by differentiating the integer part of the note and the decimal part
 export class OpinionPipe implements PipeTransform {
   transform(artisan: any): any[] {
     let wholePart = Math.floor(artisan.note);
