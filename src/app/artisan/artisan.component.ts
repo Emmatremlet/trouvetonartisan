@@ -7,6 +7,8 @@ import { ChangeDetectorRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { SearchService } from '../search.service';
 import { OpinionPipe } from '../opinion.pipe';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+
 
 @Component({
   selector: 'app-artisan',
@@ -34,6 +36,7 @@ export class ArtisanComponent implements OnInit {
     private route: ActivatedRoute,
     private cdRef: ChangeDetectorRef,
     private searchService: SearchService,
+    private sanitizer: DomSanitizer,
   ) {
     this.searchSubscription = this.searchService.searchTerm$.subscribe(
       (term) => {
@@ -46,20 +49,30 @@ export class ArtisanComponent implements OnInit {
       this.sortedArtisans = [...this.artisans];
     });
   }
+  //function which disinfect and secure data.
+  sanitizeHtml(unsafeHtml: any): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(unsafeHtml);
+  }
 
   // function allowing you to display the artisans sought according to their name, their city or their profession
   searchArt(): void {
     if (!this.artisans) {
       return;
     }
-    this.sortedArtisans = this.artisans.filter(
-      (artisan) =>
-        artisan.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-        artisan.specialty
-          .toLowerCase()
-          .includes(this.searchTerm.toLowerCase()) ||
-        artisan.location.toLowerCase().includes(this.searchTerm.toLowerCase()),
-    );
+    if (this.sanitizeHtml(this.searchTerm)) {
+      this.sortedArtisans = this.artisans.filter(
+        (artisan) =>
+          artisan.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+          artisan.specialty
+            .toLowerCase()
+            .includes(this.searchTerm.toLowerCase()) ||
+          artisan.location
+            .toLowerCase()
+            .includes(this.searchTerm.toLowerCase()),
+      );
+    } else {
+      console.log('Code malveillant');
+    }
   }
 
   //Function to destroy an observable
@@ -68,16 +81,19 @@ export class ArtisanComponent implements OnInit {
   }
 
   // function allowing you to display the artisans sought according to their name, their city or their profession
-
   searchArtisans(event: Event) {
     const target = event.target as HTMLSelectElement;
     this.searchTerm = target.value.toLowerCase();
-    this.sortedArtisans = this.artisans.filter(
-      (artisan) =>
-        artisan.name.toLowerCase().includes(this.searchTerm) ||
-        artisan.specialty.toLowerCase().includes(this.searchTerm) ||
-        artisan.location.toLowerCase().includes(this.searchTerm),
-    );
+    if (this.sanitizeHtml(this.searchTerm)) {
+      this.sortedArtisans = this.artisans.filter(
+        (artisan) =>
+          artisan.name.toLowerCase().includes(this.searchTerm) ||
+          artisan.specialty.toLowerCase().includes(this.searchTerm) ||
+          artisan.location.toLowerCase().includes(this.searchTerm),
+      );
+    } else {
+      console.log('Code malveillant');
+    }
   }
 
   //Function reacting to the select tag and which, depending on the user's action, calls the filterArtisansByCategory function

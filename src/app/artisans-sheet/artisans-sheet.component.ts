@@ -2,9 +2,10 @@ import { ArtisansService } from '../artisans.service';
 import { Artisan } from '../artisan.model';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Component, Input, NgIterable } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EmailService } from '../email.service';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
 import { OpinionPipe } from '../opinion.pipe';
 
 @Component({
@@ -34,6 +35,7 @@ export class ArtisansSheetComponent {
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private emailService: EmailService,
+    private sanitizer: DomSanitizer,
   ) {
     this.contactForm = this.formBuilder.group({
       firstname: ['', Validators.required],
@@ -42,6 +44,11 @@ export class ArtisansSheetComponent {
       object: ['', Validators.required],
       comments: ['', Validators.required],
     });
+  }
+
+  //function which disinfect and secure data.
+  sanitizeHtml(unsafeHtml: any): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(unsafeHtml);
   }
 
   //Function to display the craftsman having the same id as the one in the url
@@ -72,20 +79,23 @@ export class ArtisansSheetComponent {
   //Function using EmailService by sending it the form data and which reacts based on the response
   onSubmit(e: Event) {
     e.preventDefault();
-
-    this.emailService
-      .sendEmail(this.contactForm)
-      .then(() => {
-        console.log('Email sent successfully');
-        this.contactForm.reset();
-        this.alertEmail('Votre message a été envoyé !', 'success');
-      })
-      .catch((error) => {
-        console.error('Failed to send email', error);
-        this.alertEmail(
-          "ERREUR ! Votre message n'a pas été envoyé !",
-          'danger',
-        );
-      });
+    if (this.sanitizeHtml(this.contactForm)) {
+      this.emailService
+        .sendEmail(this.contactForm)
+        .then(() => {
+          console.log('Email sent successfully');
+          this.contactForm.reset();
+          this.alertEmail('Votre message a été envoyé !', 'success');
+        })
+        .catch((error) => {
+          console.error('Failed to send email', error);
+          this.alertEmail(
+            "ERREUR ! Votre message n'a pas été envoyé !",
+            'danger',
+          );
+        });
+    } else {
+      console.log('Code malveillant');
+    }
   }
 }
