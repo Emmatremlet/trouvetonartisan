@@ -71,7 +71,7 @@
         <h4>Formulaire de contact :</h4>
         <form
           formGroup="contactForm"
-          submit="onSubmit($event)"
+          (ngSubmit)="onSubmit($event)"
           method="post"
           class="contact_form"
         >
