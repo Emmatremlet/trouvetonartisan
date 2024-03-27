@@ -26,3 +26,16 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 # trouvetonartisan
+
+## Send email with emailjs
+
+Create an emailjs account. 
+Retrieve the public key in your user settings.
+
+Add your email service.
+Retrieve the service id.
+
+Create your email template.
+Retrieve the template id. 
+
+Configure Angular environments to be able to use these three values.
