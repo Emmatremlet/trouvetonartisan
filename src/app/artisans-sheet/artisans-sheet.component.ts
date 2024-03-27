@@ -80,8 +80,15 @@ export class ArtisansSheetComponent {
   onSubmit(e: Event) {
     e.preventDefault();
     if (this.sanitizeHtml(this.contactForm)) {
+      const templateParams = {
+        firstname: this.contactForm.value.firstname,
+        lastname: this.contactForm.value.lastname,
+        email: this.contactForm.value.email,
+        object: this.contactForm.value.object,
+        comments: this.contactForm.value.comments,
+      };
       this.emailService
-        .sendEmail(this.contactForm)
+        .sendEmail(templateParams)
         .then(() => {
           console.log('Email sent successfully');
           this.contactForm.reset();

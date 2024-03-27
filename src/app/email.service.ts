@@ -16,7 +16,7 @@ export class EmailService {
 
   sendEmail(templateParams: any): Promise<any> {
     return emailjs
-      .sendForm(this.serviceId, this.templateId, templateParams, this.userId)
+      .send(this.serviceId, this.templateId, templateParams, this.userId)
       .then(
         (response: any) => {
           console.log('Success!', response.status, response.text);
