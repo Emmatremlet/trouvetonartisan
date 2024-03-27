@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import * as emailjs from '@emailjs/browser';
+import emailjs, { type EmailJSResponseStatus } from '@emailjs/browser';
 import { environment } from '../environments/environment.development';
 
 
@@ -23,7 +23,7 @@ export class EmailService {
           return response;
         },
         (error: any) => {
-          console.error('Failed...', error);
+          console.error('Failed...', (error as EmailJSResponseStatus).text);
           throw error;
         },
       );

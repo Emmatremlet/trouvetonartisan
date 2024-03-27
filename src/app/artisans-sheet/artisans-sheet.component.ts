@@ -46,10 +46,10 @@ export class ArtisansSheetComponent {
     });
   }
 
-  // //function which disinfect and secure data.
-  // sanitizeHtml(unsafeHtml: any): SafeHtml {
-  //   return this.sanitizer.bypassSecurityTrustHtml(unsafeHtml);
-  // }
+  //function which disinfect and secure data.
+  sanitizeHtml(unsafeHtml: any): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(unsafeHtml);
+  }
 
   //Function to display the craftsman having the same id as the one in the url
   ngOnInit(): void {
@@ -79,7 +79,7 @@ export class ArtisansSheetComponent {
   //Function using EmailService by sending it the form data and which reacts based on the response
   onSubmit(e: Event) {
     e.preventDefault();
-    // if (this.sanitizeHtml(this.contactForm)) {
+    if (this.sanitizeHtml(this.contactForm)) {
       this.emailService
         .sendEmail(this.contactForm)
         .then(() => {
@@ -94,8 +94,8 @@ export class ArtisansSheetComponent {
             'danger',
           );
         });
-    // } else {
-    //   console.log('Code malveillant');
-    // }
+    } else {
+      console.log('Code malveillant');
+    }
   }
 }
