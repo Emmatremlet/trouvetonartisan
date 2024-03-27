@@ -1,7 +1,7 @@
 import { ArtisansService } from '../artisans.service';
 import { Artisan } from '../artisan.model';
 import { ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EmailService } from '../email.service';
@@ -11,7 +11,7 @@ import { OpinionPipe } from '../opinion.pipe';
 @Component({
   selector: 'app-artisans-sheet',
   standalone: true,
-  imports: [CommonModule, OpinionPipe],
+  imports: [CommonModule, OpinionPipe, ReactiveFormsModule],
   templateUrl: './artisans-sheet.component.html',
   styleUrl: './artisans-sheet.component.css',
 })

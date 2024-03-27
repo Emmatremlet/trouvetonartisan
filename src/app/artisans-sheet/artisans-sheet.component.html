@@ -70,8 +70,8 @@
       <div class="container-contact">
         <h4>Formulaire de contact :</h4>
         <form
-          formGroup="contactForm"
-          (ngSubmit)="onSubmit($event)"
+          [formGroup]="contactForm"
+          submit="onSubmit($event)"
           method="post"
           class="contact_form"
         >
@@ -105,6 +105,7 @@
               formControlName="email"
               placeholder="Votre email"
               key="email-input"
+              email
               required
             />
           </div>
